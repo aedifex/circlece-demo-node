@@ -1,11 +1,14 @@
 #!/bin/bash
 
+# Christopher Black MMXX - CircleCI
+
 # This script is responsible for setting up, resetting, and destroying the environments
 # needed to run the "standard" CircleCI demo. The credentials needed for the API calls as well as
-# some of the custom decorators (background images, taglines...etc) are $(source)'d from the file secrets.
+# some of the custom decorators (background images, taglines...etc) are $(source)'d from the secrets file.
 # Each method should provide a brief commentary on what the function performs and what values to expect, if any.
 
 set -e
+PR_NAME=update-api-tests
 
 # recreates local project and uses 'sed' to replace template values with custom content (e.g. background photos)
 recreate_local_project() {
@@ -67,16 +70,16 @@ setup_circleci_project_envars() {
 # make a small change, push change upstream on feature branch (update button), and create PR
 recreate_pr() {
     echo "Recreating feature branch and PR..."
-    git checkout -b update-button
+    git checkout -b $PR_NAME
     # sed -i '' 's_<a class="cta cta-red" href="#">Try it now</a>_<a class="cta cta-green" href="#">Sign up now</a>_' webapp/static/index.html
     git add test/api_tests.js
-    git commit -am "Update button" --allow-empty
-    git push -f origin update-button
+    git commit -am "Update API tests" --allow-empty
+    git push -f origin $PR_NAME
     curl -sS -u "$GH_USER:$GH_TOKEN" -X POST -d @- "https://api.github.com/repos/$GH_USER/$GH_REPO/pulls" > /dev/null <<EOF
 {
-  "title": "Update signup button",
-  "body": "This is gonna triple our signups!",
-  "head": "update-button",
+  "title": "Update API tests",
+  "body": "These new endpoints are amazing!",
+  "head": "$PR_NAME",
   "base": "master"
 }
 EOF
