@@ -88,8 +88,15 @@ EOF
 
 # setup a new heroku application
 setup_heroku() {
-    echo "Creating heroku application"
-    # return "heroku application ID"
+    echo "Provisioning heroku application"
+    heroku container:login
+    heroku apps:create $HEROKU_APPLICATION
+}
+
+destroy_heroku() {
+    echo "Tearing down heroku environment..."
+    heroku container:login
+    heroku apps:destroy --confirm $HEROKU_APPLICATION
 }
 
 # the following functions thoroughly destroy the demo environment
@@ -112,8 +119,10 @@ case $1 in
                 (cd temp-application && recreate_pr)
                 ;;
     heroku)     echo "call setup_heroku script here"
+                setup_heroku
                 ;;
-    destroy)    
+    destroy)    destroy_heroku
+                ;;
 esac
 
 echo "reset.sh successfully executed...good luck!" && exit 0

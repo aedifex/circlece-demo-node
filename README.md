@@ -1,3 +1,7 @@
+# CircleCI & Node.js demo
+
+![](app.gif)
+
 # Setting Up A Demo
 
 The "demo" is designed to provide a simple proof of concept for a typical use-case on CircleCI, demonstrating CI/CD in practice as well as several product features (e.g. Workflows, Contexts, etc).
