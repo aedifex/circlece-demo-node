@@ -2,7 +2,7 @@
 
 ## Setting Up A Demo
 
-<img src="app.gif" width="600" height="600" />
+<img src="app.gif" width="600"/>
 
 The "demo" is designed to provide a simple proof of concept for a typical use-case on CircleCI, demonstrating CI/CD in practice as well as several product features (e.g. Workflows, Contexts, etc).
 
